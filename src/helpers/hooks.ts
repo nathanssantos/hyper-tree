@@ -389,6 +389,16 @@ export const useTreeState = ({
         [setDragContainer, dropNodeId]
     )
 
+    const canMove = (sourceNode: TreeNode, currentNode: TreeNode | null): boolean => {
+        if (currentNode?.options?.parent) {
+            if (currentNode.options.parent.id === sourceNode.id) return false
+
+            return canMove(sourceNode, getNode(currentNode.options.parent))
+        }
+
+        return true
+    }
+
     const handleDrop = useCallback(
         (sourceNode: TreeNode) => (e: React.DragEvent) => {
             e.stopPropagation()
@@ -400,6 +410,8 @@ export const useTreeState = ({
             if (dropNodeId && dropNodeId !== sourceNode.id) {
                 const targetNode = treeView.getNodeById(dropNodeId)
                 if (sourceNode) {
+                    if (!canMove(sourceNode, targetNode)) return
+
                     if (sourceNode.options.parent) {
                         sourceNode.options.parent.removeChild(sourceNode)
                     } else {
