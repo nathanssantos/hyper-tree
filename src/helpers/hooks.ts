@@ -389,11 +389,11 @@ export const useTreeState = ({
         [setDragContainer, dropNodeId]
     )
 
-    const canMove = (sourceNode: TreeNode, currentNode: TreeNode | null): boolean => {
+    const canDrop = (sourceNode: TreeNode, currentNode: TreeNode | null): boolean => {
         if (currentNode?.options?.parent) {
             if (currentNode.options.parent.id === sourceNode.id) return false
 
-            return canMove(sourceNode, getNode(currentNode.options.parent))
+            return canDrop(sourceNode, getNode(currentNode.options.parent))
         }
 
         return true
@@ -410,7 +410,7 @@ export const useTreeState = ({
             if (dropNodeId && dropNodeId !== sourceNode.id) {
                 const targetNode = treeView.getNodeById(dropNodeId)
                 if (sourceNode) {
-                    if (!canMove(sourceNode, targetNode)) return
+                    if (!canDrop(sourceNode, targetNode)) return
 
                     if (sourceNode.options.parent) {
                         sourceNode.options.parent.removeChild(sourceNode)
