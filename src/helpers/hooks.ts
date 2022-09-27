@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useMemo, useCallback, useState, useEffect } from 'react'
 import hash from 'hash-sum'
 import { TreeView, IFilter, ISort, TreeNode, InsertChildType, InsertSiblingType, IData } from './node'
@@ -392,15 +393,18 @@ export const useTreeState = ({
         [setDragContainer]
     )
 
-    const canDrop = (sourceNode: TreeNode, currentNode: TreeNode | null): boolean => {
-        if (currentNode?.options?.parent) {
-            if (currentNode.options.parent.id === sourceNode.id) return false
+    const canDrop = useCallback(
+        (sourceNode: TreeNode, currentNode: TreeNode | null): boolean => {
+            if (currentNode?.options?.parent) {
+                if (currentNode.options.parent.id === sourceNode.id) return false
 
-            return canDrop(sourceNode, getNode(currentNode.options.parent))
-        }
+                return canDrop(sourceNode, getNode(currentNode.options.parent))
+            }
 
-        return true
-    }
+            return true
+        },
+        [getNode]
+    )
 
     const handleDrop = useCallback(
         (sourceNode: TreeNode) => (e: React.DragEvent) => {
@@ -436,7 +440,7 @@ export const useTreeState = ({
                 }
             }
         },
-        [dropNodeId, forceUpdate, treeView, setDragContainer, setSiblings, dropType]
+        [dropNodeId, forceUpdate, treeView, setDragContainer, setSiblings, dropType, canDrop]
     )
 
     treeHandlers
