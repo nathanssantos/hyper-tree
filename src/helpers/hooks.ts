@@ -384,13 +384,11 @@ export const useTreeState = ({
             e.stopPropagation()
             e.preventDefault()
 
-            // if (node.id !== dropNodeId) {
-            //     setDragContainer(node, false)
-            // }
-            setDragContainer(node, false)
+            if (node.id !== dropNodeId) {
+                setDragContainer(node, false)
+            }
         },
-        // [setDragContainer, dropNodeId]
-        [setDragContainer]
+        [setDragContainer, dropNodeId]
     )
 
     const canDrop = useCallback(
