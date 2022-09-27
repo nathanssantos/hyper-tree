@@ -383,6 +383,7 @@ export const useTreeState = ({
             e.stopPropagation()
             e.preventDefault()
             if (node.id !== dropNodeId) {
+                console.log('if(node.id !== dropNodeId)', node)
                 setDragContainer(node, false)
             }
         },
