@@ -10,11 +10,11 @@
     visibility: hidden;
     opacity: 0;
 
-    &.dragZoneVisible {
-        visibility: visible;
-    }
+    // &.dragZoneVisible {
+    // }
 
     &:hover {
+        visibility: visible;
         opacity: 1;
     }
 
