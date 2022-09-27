@@ -382,14 +382,16 @@ export const useTreeState = ({
         (node: TreeNode) => (e: React.DragEvent) => {
             e.stopPropagation()
             e.preventDefault()
-            console.log('handleDragLeave', node)
+            // console.log('handleDragLeave', node)
 
             // if (node.id !== dropNodeId) {
             //     console.log('if(node.id !== dropNodeId)', node)
+            //     setDragContainer(node, false)
             // }
             setDragContainer(node, false)
         },
-        [setDragContainer, dropNodeId]
+        // [setDragContainer, dropNodeId]
+        [setDragContainer]
     )
 
     const canDrop = (sourceNode: TreeNode, currentNode: TreeNode | null): boolean => {
