@@ -384,10 +384,10 @@ export const useTreeState = ({
             e.preventDefault()
             console.log('handleDragLeave', node)
 
-            if (node.id !== dropNodeId) {
-                console.log('if(node.id !== dropNodeId)', node)
-                setDragContainer(node, false)
-            }
+            // if (node.id !== dropNodeId) {
+            //     console.log('if(node.id !== dropNodeId)', node)
+            // }
+            setDragContainer(node, false)
         },
         [setDragContainer, dropNodeId]
     )
